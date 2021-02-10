@@ -2,10 +2,9 @@ const path = require('path');
 
 module.exports = {
   mode: 'development',
-  entry: './client/src/index.js',
+  entry: './client/src/index.jsx',
   output: {
-    path: path.resolve(__dirname, 'bundle.js'),
-    publicPath: '/',
+    path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
   },
   module: {
@@ -20,21 +19,29 @@ module.exports = {
         test: /\.s?css/,
         exclude: /node_modules/,
         use: ['style-loader', 'css-loader', 'sass-loader']
-      }
+      },
     ]
   },
   devServer: {
-    allowedHosts: [
-      '127.0.0.1'
-    ],
-    host: '127.0.0.1',
-    port: 8080,
-    contentBase: path.resolve(__dirname, 'client/src'),
-    publicPath: '/',
-    historyApiFallback: true,
-    proxy: {
-      '/': 'http://localhost:3000'
-    },
-    hot: true,
+    contentBase: path.join(__dirname, 'dist'),
+    compress: true,
+    port: 9000,
+  },
+  resolve: {
+    extensions: ['.jsx', '.js']
   }
+  // devServer: {
+  //   allowedHosts: [
+  //     '127.0.0.1'
+  //   ],
+  //   host: '127.0.0.1',
+  //   port: 8080,
+  //   contentBase: path.resolve(__dirname, 'client/src'),
+  //   publicPath: '/',
+  //   historyApiFallback: true,
+  //   proxy: {
+  //     '/': 'http://localhost:3000'
+  //   },
+  //   hot: true,
+  // }
 }
