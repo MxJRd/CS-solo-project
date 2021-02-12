@@ -1,16 +1,33 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import DataStructureRenderer from '../components/DataStructureRenderer';
+import React, { useContext } from 'react';
+
+import HomePageRenderer from '../components/HomePageRenderer';
+import { createMuiTheme, ThemeProvider, makeStyles } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { PageContext } from '../contexts/PageContext'
+
+
+const theme = createMuiTheme({
+  typography: {
+    "fontFamily": ['Roboto', 'Source Code Pro', 'sans-serif'].join(','),
+    "fontSize": 14,
+    "fontWeightLight": 300,
+    "fontWeightRegular": 400,
+    "fontWeightMedium": 700,
+    "spacing": '8px'
+  }
+});
 
 const App = () => {
+  const { dataStructure, setDataStructure } = useContext(PageContext);
   return (
-    <div>
-      <h1>WELCOME TO REACT APP!</h1>
-      <DataStructureRenderer />
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <div id="app">
+        <h1>{dataStructure}</h1>
+        <HomePageRenderer theme={theme} />
+      </div>
+    </ThemeProvider>
   )
 };
-
-ReactDOM.render(<App />, document.getElementById('root'));
 
 export default App;
